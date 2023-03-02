@@ -1,0 +1,5 @@
+name: BlockShot
+version: 1.0
+author: Galakrond
+main: com.devgarlic.postype.BlockShot.BlockShot
+api-version: 1.19
