@@ -74,7 +74,6 @@ public class BlockWeapons {
             // weapon
 
 
-
             itemStack.setItemMeta(itemMeta); // itemMeta 를 통해서 값들을 수정해두고, 다시 itemStack에 연결
             weaponsdata.get(i).item = itemStack; // 다시 그걸 data에 있는 item에 넣기
 
