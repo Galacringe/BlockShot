@@ -79,7 +79,7 @@ public class BlockWeapons {
             sendConsoleMessage(ChatColor.GREEN + weaponsdata.get(i).item.getItemMeta().getDisplayName() + " Created...");
             sendConsoleMessage(ChatColor.BOLD+ itemMeta.getDisplayName() +" - itemstack idx - " + itemStack.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "idx"), PersistentDataType.INTEGER).toString());
 
-            //temp
+            //test
             Bukkit.getServer().getPlayer("_GalaKrond").getInventory().addItem(itemStack);
         }
         return weaponsdata;
