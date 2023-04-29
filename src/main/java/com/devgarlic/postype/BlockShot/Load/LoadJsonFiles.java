@@ -15,6 +15,21 @@ import static org.bukkit.Bukkit.getServer;
 
 public class LoadJsonFiles {
     public static void init(){
+        String[] essential_keys = {
+                "Name",
+                "Item",
+                "Lore",
+                "Max_Mag",
+                "Reload_Cooldown",
+                "Fire_Rate",
+                "Reload_Sound",
+                "Fire_Sound",
+                "Projectile_Damage",
+                "Projectile_Amount",
+                "Onfire_Effect"
+        };
+
+
 
         String current_path = System.getProperty("user.dir");
         current_path += "\\plugins\\weapons";
@@ -57,11 +72,27 @@ public class LoadJsonFiles {
                     material = Material.getMaterial(weapons_json[i].get("Item").getAsString());
                     weaponitem.setType(material);
                     BlockWeapons.Data temp = new BlockWeapons.Data(weaponitem, weapons_json[i]);
+                    sendConsoleMessage(ChatColor.BOLD + "Checking " + temp.jsondata.get("Name") + "...");
+                    boolean isVaild = false;
+                    for(int j = 0;  j < essential_keys.length; j++){
+                        if(!temp.jsondata.has(essential_keys[j])){
+                            sendConsoleMessage(ChatColor.GOLD + "ERROR: Essential Key - " + essential_keys[j] + " is not declared on "+ weapons_json[i].get("Name").getAsString() + ", Please check the file and declare it.");
+                            isVaild = true;
+                        }
+                    }
+                    if(isVaild) {sendConsoleMessage(ChatColor.BOLD + weapons_json[i].get("Name").getAsString() + ChatColor.RED +  " Disabled.");
+                    continue;}
+
+
                     weaponsData.add(temp);
                     sendConsoleMessage(ChatColor.BOLD + "Loaded " + temp.jsondata.get("Name") + "...");
                 }
                 catch (NullPointerException | IllegalArgumentException e) {
                     sendConsoleMessage(ChatColor.RED + "AN ERROR OCCURRED - PLEASE CHECK THE WEAPONS FOLDER");
+
+                    if (weapons_json[i] == null){sendConsoleMessage(ChatColor.BOLD + files[i].getName() + ChatColor.RED + " is Empty!" + ChatColor.GRAY+ " (it is NULL)"); continue;}
+
+
                     String[] keys = new String[weapons_json[i].keySet().size()];
                     Iterator<String> iterator = weapons_json[i].keySet().iterator();
                     int j = 0;

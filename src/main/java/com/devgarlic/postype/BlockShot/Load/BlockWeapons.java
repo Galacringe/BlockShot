@@ -68,21 +68,18 @@ public class BlockWeapons {
             // to verify this is valid BlockShot item
             itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "isBlockShotWeapons"), PersistentDataType.INTEGER, 1);
 
-            // idx - fast way to get index of this weapon's data
+            // idx - fast way to get index of this weapon's origin data(from .json)
             itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "idx"), PersistentDataType.INTEGER, i);
 
             // weapon
 
-
             itemStack.setItemMeta(itemMeta); // itemMeta 를 통해서 값들을 수정해두고, 다시 itemStack에 연결
             weaponsdata.get(i).item = itemStack; // 다시 그걸 data에 있는 item에 넣기
-
 
             sendConsoleMessage(ChatColor.GREEN + weaponsdata.get(i).item.getItemMeta().getDisplayName() + " Created...");
             sendConsoleMessage(ChatColor.BOLD+ itemMeta.getDisplayName() +" - itemstack idx - " + itemStack.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "idx"), PersistentDataType.INTEGER).toString());
 
-
-
+            //temp
             Bukkit.getServer().getPlayer("_GalaKrond").getInventory().addItem(itemStack);
         }
         return weaponsdata;

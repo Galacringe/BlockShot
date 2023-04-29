@@ -10,7 +10,7 @@ public class BlockShot extends JavaPlugin{
         // ChatColor.BOLD = Normal message (2)
         // ChatColor.YELLOW = Debug message
         // ChatColor.RED = Error or something like that critical.
-
+        // ChatColor.GOLD = minor error
         sendConsoleMessage(ChatColor.GREEN + "Hello World :)");
         LoadJsonFiles.init();
 
