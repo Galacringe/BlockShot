@@ -19,13 +19,18 @@ public class LoadJsonFiles {
                 "Name",
                 "Item",
                 "Lore",
+
                 "Max_Mag",
                 "Reload_Cooldown",
                 "Fire_Rate",
-                "Reload_Sound",
-                "Fire_Sound",
+
                 "Projectile_Damage",
                 "Projectile_Amount",
+                "Projectile_Speed",
+
+                "Reload_Sound",
+                "Fire_Sound",
+
                 "Onfire_Effect"
         };
 

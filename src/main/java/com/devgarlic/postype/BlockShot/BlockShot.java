@@ -1,5 +1,7 @@
 package com.devgarlic.postype.BlockShot;
 import com.devgarlic.postype.BlockShot.Load.LoadJsonFiles;
+import com.devgarlic.postype.BlockShot.event.BlockFireEvent;
+import net.md_5.bungee.api.chat.ClickEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,6 +15,7 @@ public class BlockShot extends JavaPlugin{
         // ChatColor.GOLD = minor error
         sendConsoleMessage(ChatColor.GREEN + "Hello World :)");
         LoadJsonFiles.init();
+        initEvents();
 
     }
 
@@ -23,5 +26,9 @@ public class BlockShot extends JavaPlugin{
 
     public void sendConsoleMessage(String message){
         getServer().getConsoleSender().sendMessage(message + " - [BlockShot]");
+    }
+
+    private void initEvents(){
+        getServer().getPluginManager().registerEvents(new BlockFireEvent(), this);
     }
 }

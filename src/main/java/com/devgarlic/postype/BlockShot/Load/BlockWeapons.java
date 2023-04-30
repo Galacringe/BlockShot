@@ -14,6 +14,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 
+import static com.devgarlic.postype.BlockShot.Load.LoadJsonFiles.sendConsoleMessage;
 import static org.bukkit.Bukkit.getServer;
 
 public class BlockWeapons {
@@ -66,7 +67,7 @@ public class BlockWeapons {
             itemMeta.setLore(lore);
 
             // to verify this is valid BlockShot item
-            itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "isBlockShotWeapons"), PersistentDataType.INTEGER, 1);
+            itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "isBlockShotWeapon"), PersistentDataType.INTEGER, 1);
 
             // idx - fast way to get index of this weapon's origin data(from .json)
             itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "idx"), PersistentDataType.INTEGER, i);
@@ -85,8 +86,6 @@ public class BlockWeapons {
         return weaponsdata;
     }
 
-    public static void sendConsoleMessage(String message){
-        getServer().getConsoleSender().sendMessage(message + " - [BlockShot]");
-    }
+
 
 }
