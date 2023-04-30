@@ -24,7 +24,7 @@ public class BlockFireEvent implements Listener{
                 Player player = event.getPlayer();
                 ItemStack item = event.getItem();
 
-                if(getContainerValueAsInt(player, item, "isBlockShotWeapon") == 1){
+                if(item.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(plugin, "isBlockShotWeapon"), PersistentDataType.INTEGER) && getContainerValueAsInt(player, item, "isBlockShotWeapon") == 1){
 
                     //fire event
                     int temp = getContainerValueAsInt(event.getPlayer(), item, "Max_Mag");
