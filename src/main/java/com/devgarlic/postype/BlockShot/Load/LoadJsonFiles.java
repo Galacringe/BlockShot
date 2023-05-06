@@ -1,5 +1,6 @@
 package com.devgarlic.postype.BlockShot.Load;
 
+import com.devgarlic.postype.BlockShot.commands.BlockShotCommands;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -121,7 +122,9 @@ public class LoadJsonFiles {
 
             // weapons_json 에 json 내용 다 담김.
             // weaponsdata 에 pair 로 itemStack 이랑 jsonObject 랑 다 들어있어요~
-            BlockWeapons.setItemStack(weaponsData);
+            ArrayList<BlockWeapons.Data> prebuiltweapons = BlockWeapons.setItemStack(weaponsData);
+            BlockShotCommands.setPrebuiltweapons(prebuiltweapons);
+
         }
 
     }

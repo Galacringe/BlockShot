@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import static com.devgarlic.postype.BlockShot.Load.LoadJsonFiles.sendConsoleMessage;
@@ -27,18 +28,39 @@ public class BlockFireEvent implements Listener{
                 if(item.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(plugin, "isBlockShotWeapon"), PersistentDataType.INTEGER) && getContainerValueAsInt(player, item, "isBlockShotWeapon") == 1){
 
                     //fire event
-                    int temp = getContainerValueAsInt(event.getPlayer(), item, "Max_Mag");
-                    player.sendMessage(String.valueOf(temp));
+                    int temp = getContainerValueAsInt(event.getPlayer(), item, "VAR_CURR_MAG");
+                    player.sendMessage(ChatColor.RED + String.valueOf(temp));
+                    if(temp > 0){
+                        temp = temp - 1;
+                        // Modifying the necessary values in the item meta
+                        ItemMeta itemMeta = item.getItemMeta();
+                        itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "VAR_CURR_MAG"), PersistentDataType.INTEGER, temp);
+
+                        // change visible left ammo
+                        itemMeta.setDisplayName(getContainerValueAsString(player, item, "Name") + " / " + temp);
+
+                        // Updating the item stack with the modified item meta
+                        item.setItemMeta(itemMeta);
+
+                        player.sendMessage(String.valueOf(temp));
+
+                    }
+                    else{
+                        // NO Bullets?
+                        // https://preview.redd.it/hidsexy1emo81.jpg?auto=webp&s=11ba115d67fd85cb27323946fb0f2f3a9630929a
+                        player.sendMessage("Reload!!");
+                    }
+
                 }
             }
         }
 
     }
 
-    public int getContainerValueAsInt(Player player, ItemStack item, String key){
+    private int getContainerValueAsInt(Player player, ItemStack item, String key){
         return item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, key), PersistentDataType.INTEGER);
     }
-    public String getContainerValueAsString(Player player, ItemStack item, String key){
+    private String getContainerValueAsString(Player player, ItemStack item, String key){
         return item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, key), PersistentDataType.STRING);
     }
 

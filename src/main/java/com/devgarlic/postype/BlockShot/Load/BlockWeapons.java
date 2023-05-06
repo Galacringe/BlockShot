@@ -7,6 +7,7 @@ import jdk.nashorn.internal.ir.Block;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -18,7 +19,8 @@ import static com.devgarlic.postype.BlockShot.Load.LoadJsonFiles.sendConsoleMess
 import static org.bukkit.Bukkit.getServer;
 
 public class BlockWeapons {
-    static class Data {
+    Plugin plugin = BlockShot.getPlugin(BlockShot.class);
+    public static class Data {
         public ItemStack item;
         public JsonObject jsondata;
 
@@ -41,15 +43,19 @@ public class BlockWeapons {
 
 
             // Item's name
-            itemMeta.setDisplayName(jsonObject.get("Name").getAsString() + " / " +jsonObject.get("Projectile_Damage").getAsString());
-            itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "DefaultName"), PersistentDataType.STRING, jsonObject.get("Name").getAsString());
+            itemMeta.setDisplayName(jsonObject.get("Name").getAsString() + " / " +jsonObject.get("Max_Mag").getAsString());
+            itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "Name"), PersistentDataType.STRING, jsonObject.get("Name").getAsString());
 
             // sets base data
             itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "Max_Mag"),PersistentDataType.INTEGER, jsonObject.get("Max_Mag").getAsInt());
+
             itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "Reload_Cooldown"),PersistentDataType.INTEGER, jsonObject.get("Reload_Cooldown").getAsInt());
             itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "Projectile_Damage"),PersistentDataType.INTEGER, jsonObject.get("Projectile_Damage").getAsInt());
             itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "Projectile_Amount"),PersistentDataType.INTEGER, jsonObject.get("Projectile_Amount").getAsInt());
             itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "Projectile_Speed"),PersistentDataType.INTEGER, jsonObject.get("Projectile_Speed").getAsInt());
+
+            // sets variables
+            itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "VAR_CURR_MAG"),PersistentDataType.INTEGER, jsonObject.get("Max_Mag").getAsInt()); // 남은 총알 = 0이 되면 재장전을 해야겠지
 
             // sets lore
             ArrayList<String> lore = new ArrayList<>();
@@ -85,7 +91,4 @@ public class BlockWeapons {
         }
         return weaponsdata;
     }
-
-
-
 }

@@ -1,8 +1,10 @@
 package com.devgarlic.postype.BlockShot;
 import com.devgarlic.postype.BlockShot.Load.LoadJsonFiles;
+import com.devgarlic.postype.BlockShot.commands.BlockShotCommands;
 import com.devgarlic.postype.BlockShot.event.BlockFireEvent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import org.bukkit.ChatColor;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BlockShot extends JavaPlugin{
@@ -17,6 +19,9 @@ public class BlockShot extends JavaPlugin{
         LoadJsonFiles.init();
         initEvents();
 
+        BlockShotCommands commands = new BlockShotCommands();
+        getCommand("viewpersistantdatacontainer").setExecutor(commands);
+        getCommand("getloadedweapons").setExecutor(commands);
     }
 
     @Override

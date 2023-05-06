@@ -3,3 +3,11 @@ version: 1.0
 author: Galakrond
 main: com.devgarlic.postype.BlockShot.BlockShot
 api-version: 1.19
+
+commands:
+  viewpersistantdatacontainer:
+    description: Get full data of Persistant Data Container on item that you held.
+    usage: "/<command>"
+  getloadedweapons:
+    description: Get all pre-loaded weapons.
+    usage: "/<command>"
