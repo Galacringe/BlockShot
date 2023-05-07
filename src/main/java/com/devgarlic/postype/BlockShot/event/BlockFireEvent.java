@@ -50,7 +50,7 @@ public class BlockFireEvent implements Listener{
                     if(temp > 0){
                         // Has Bullet
                         temp = temp - 1;
-                        // Modifying the necessary values in the item meta
+                        // Modifying the necessary values in the ItemMeta
                         ItemMeta itemMeta = item.getItemMeta();
                         itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "VAR_CURR_MAG"), PersistentDataType.INTEGER, temp);
 
