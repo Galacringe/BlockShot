@@ -11,3 +11,6 @@ commands:
   getloadedweapons:
     description: Get all pre-loaded weapons.
     usage: "/<command>"
+  viewhashmap:
+    description: view recent fired data HashMap
+    usage: "/<command>"

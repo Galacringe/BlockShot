@@ -1,11 +1,14 @@
 package com.devgarlic.postype.BlockShot.commands;
 
 import com.devgarlic.postype.BlockShot.Load.BlockWeapons;
+import com.devgarlic.postype.BlockShot.event.BlockFireEvent;
+import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +40,13 @@ public class BlockShotCommands implements CommandExecutor {
                 player.getInventory().addItem(data.item );
             }
 
+        }
+        else if (cmd.getName().equalsIgnoreCase("viewhashmap")) {
+            Set<Player> keySet = BlockFireEvent.timeSinceLastShot.keySet();
+            for(Player key : keySet){
+                player.sendMessage(ChatColor.GREEN + key.getInventory().getItemInMainHand().getItemMeta().toString());
+                sendConsoleMessage(ChatColor.GREEN + key.getInventory().getItemInMainHand().getItemMeta().toString() + BlockFireEvent.timeSinceLastShot.get(key));
+            }
         }
 
 

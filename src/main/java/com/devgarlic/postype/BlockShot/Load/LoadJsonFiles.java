@@ -46,7 +46,7 @@ public class LoadJsonFiles {
                 sendConsoleMessage(ChatColor.GREEN + "created weapons folders on " + weapons_directory + "...");
             }
             catch (Exception e) {
-                sendConsoleMessage(ChatColor.RED + "an error occured while creating weapons folder....");
+                sendConsoleMessage(ChatColor.RED + "An error occured while creating weapons folder....");
                 e.printStackTrace();
             }
         }

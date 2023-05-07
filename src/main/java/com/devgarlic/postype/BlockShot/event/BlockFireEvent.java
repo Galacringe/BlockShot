@@ -13,8 +13,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
+
+import java.util.HashMap;
+
 import static com.devgarlic.postype.BlockShot.Load.LoadJsonFiles.sendConsoleMessage;
 public class BlockFireEvent implements Listener{
+    // https://www.spigotmc.org/threads/bullet-speed.172917/
+    // used this concept
+    public static HashMap<Player, Long> timeSinceLastShot = new HashMap<>();
     Plugin plugin = BlockShot.getPlugin(BlockShot.class);
     @EventHandler
     public void BlockFireEvent(PlayerInteractEvent event){
@@ -27,10 +33,22 @@ public class BlockFireEvent implements Listener{
 
                 if(item.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(plugin, "isBlockShotWeapon"), PersistentDataType.INTEGER) && getContainerValueAsInt(player, item, "isBlockShotWeapon") == 1){
 
-                    //fire event
-                    int temp = getContainerValueAsInt(event.getPlayer(), item, "VAR_CURR_MAG");
-                    player.sendMessage(ChatColor.RED + String.valueOf(temp));
+                    // yes this is BlockShot Weapon and I will check it has bullet
+                    int temp = getContainerValueAsInt(player, item, "VAR_CURR_MAG");
+                    long delay = (long)getContainerValueAsInt(player, item, "Fire_Rate");
+                    player.sendMessage(ChatColor.RED + String.valueOf(temp)); // Current Left Magazine
+
+                    if (System.currentTimeMillis() - timeSinceLastShot.getOrDefault(player, delay) < delay) {
+                        player.sendMessage("too fast");
+                        event.setCancelled(true);
+                        return;
+                    }
+                    long recent = System.currentTimeMillis();
+                    timeSinceLastShot.put(player, recent);
+                    player.sendMessage(String.valueOf(recent));
+
                     if(temp > 0){
+                        // Has Bullet
                         temp = temp - 1;
                         // Modifying the necessary values in the item meta
                         ItemMeta itemMeta = item.getItemMeta();
@@ -50,6 +68,8 @@ public class BlockFireEvent implements Listener{
                         // https://preview.redd.it/hidsexy1emo81.jpg?auto=webp&s=11ba115d67fd85cb27323946fb0f2f3a9630929a
                         player.sendMessage("Reload!!");
                     }
+                    event.setCancelled(true);
+
 
                 }
             }
